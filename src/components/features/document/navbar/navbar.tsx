@@ -3,7 +3,6 @@
 import React from 'react';
 import Image from 'next/image'
 import Link from 'next/link';
-import {DocumentInput} from "@/components/widgets/navbar/document-input/document-input";
 import {
 	Menubar,
 	MenubarContent,
@@ -28,6 +27,7 @@ import {
 import {BsFilePdf} from "react-icons/bs";
 import {convertUnicode} from "@/lib/utils";
 import {useEditorStore} from "@/store/use-editor-store";
+import {DocumentInput} from "@/components/features/document/navbar/document-input/document-input";
 
 export const Navbar = () => {
 

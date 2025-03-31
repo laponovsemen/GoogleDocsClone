@@ -1,13 +1,33 @@
+'use client'
+
 import React from 'react';
 import {Button} from "@/components/ui/button";
+import { Navbar } from '@/components/features/home/navbar';
+import { TemplateGallery } from '@/components/features/home/template-gallery/template-gallery';
+import {api} from '../../../convex/_generated/api'
+import {usePaginatedQuery} from "convex/react";
+import { DocumentsTable } from '@/components/features/home/documents-table/documents-table';
 
 const Home = () => {
+	const {results, status, loadMore} = usePaginatedQuery(api.documents.getDocuments, {}, {
+		initialNumItems: 5
+	})
+
+
 	return (
-		<div className={"flex justify-center min-h-screen items-center "}>
-          <p>Hello world</p>
-			<Button className="" variant={'destructive'}>
-				Click me
-			</Button>
+		<div className={"flex min-h-screen flex-col"}>
+			<div className={'fixed top-0 left-0 z-10 h-16 bg-white p-4 w-full'}>
+				<Navbar />
+			</div>
+			<div className={'mt-16'}>
+				<TemplateGallery />
+				<DocumentsTable
+					documents={results}
+					loadMore={loadMore}
+					status={status}
+				/>
+			</div>
+
 		</div>
 	);
 };

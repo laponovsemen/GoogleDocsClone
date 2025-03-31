@@ -3,27 +3,23 @@ import {useEditorStore} from "@/store/use-editor-store";
 import {ColorResult, SketchPicker} from 'react-color'
 import {DropdownMenu, DropdownMenuContent, DropdownMenuTrigger} from "@/components/ui/dropdown-menu";
 import {cn} from "@/lib/utils";
+import {HighlighterIcon} from "lucide-react";
 
 
-export const TextColorButton = () => {
+export const HighlightColorButton = () => {
 	const {editor} = useEditorStore()
 
-	const value = editor?.getAttributes('textStyle').color || "#000000";
+	const value = editor?.getAttributes('highlight').color || '#ffffff'
 
 	const onChange = (color: ColorResult) => {
-		editor?.chain().focus().setColor(color.hex).run();
+		editor?.chain().focus().setHighlight({color: color.hex}).run();
 	}
 
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				<button
-					className={cn(
-						'text-sm overflow-hidden px-1.5 flex-col hover:bg-neutral-200/80 rounded-sm justify-center items-center flex shrink-0 min-w-7 h-7',
-					)}
-				>
-					<span className={'text-xs'}>A</span>
-					<div className={cn('h-0.5 w-full')} style={{backgroundColor: value}}/>
+				<button className={'px-1.5 hover:bg-neutral-200/80 rounded-sm justify-center items-center flex shrink-0 min-w-7 h-7'}>
+					<HighlighterIcon className={'size-4'}/>
 				</button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent

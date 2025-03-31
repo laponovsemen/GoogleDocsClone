@@ -16,6 +16,14 @@ import { useEditorStore } from '@/store/use-editor-store';
 import {Separator} from "@/components/ui/separator";
 import {FontFamilyButton} from "@/components/features/editor/font-family-button/font-family-button";
 import {HeadingLevelButton} from "@/components/features/editor/heading-level-button/heading-level-button";
+import {TextColorButton} from "@/components/features/editor/text-color-button/text-color-button";
+import {HighlightColorButton} from "@/components/features/editor/highlight-color-button/highlight-color-button";
+import {LinkButton} from "@/components/features/editor/link-button/link-button";
+import {ImageButton} from "@/components/features/editor/image-button/image-button";
+import {AlignButton} from "@/components/features/editor/align-button/align-button";
+import {ListButton} from "@/components/features/editor/list-button/list-button";
+import {FontSizeButton} from "@/components/features/editor/font-size-button/font-size-button";
+import {LineHeightButton} from "@/components/features/editor/line-height-button/line-height-button";
 
 
 interface ToolbarButtonProps {
@@ -139,7 +147,7 @@ export const Toolbar = () => {
 				orientation="vertical"
 				className={'h-6 bg-neutral-300'}
 			/>
-		{/*	todo font size*/}
+			<FontSizeButton />
 			<Separator
 				orientation="vertical"
 				className={'h-6 bg-neutral-300'}
@@ -149,17 +157,17 @@ export const Toolbar = () => {
 					<ToolbarButton key={`toolbar-item-${item.label}-${index}`} {...item}/>
 				)
 			})}
-		{/*	 todo: text color*/}
-		{/*	todo : Highlight color*/}
+			<TextColorButton />
+			<HighlightColorButton/>
 			<Separator
 				orientation="vertical"
 				className={'h-6 bg-neutral-300'}
 			/>
-		{/* todo link*/}
-		{/*todo image*/}
-		{/*todo align*/}
-		{/*todo line height*/}
-		{/*todo list*/}
+			<LinkButton />
+			<ImageButton />
+			<AlignButton />
+			<LineHeightButton />
+			<ListButton />
 			{sections[2].map((item, index) => {
 				return (
 					<ToolbarButton key={`toolbar-item-${item.label}-${index}`} {...item}/>
