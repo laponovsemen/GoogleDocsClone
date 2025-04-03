@@ -1,20 +1,10 @@
-import React, {useState} from 'react';
-import {useEditorStore} from "@/store/use-editor-store";
-import {ColorResult, SketchPicker} from 'react-color'
-import {DropdownMenu, DropdownMenuContent, DropdownMenuTrigger} from "@/components/ui/dropdown-menu";
-import {cn} from "@/lib/utils";
-import {
-	AlignCenterIcon,
-	AlignJustifyIcon,
-	AlignLeftIcon,
-	AlignRightIcon,
-	HighlighterIcon,
-	ListIcon, ListOrderedIcon, MinusIcon, PlusIcon
-} from "lucide-react";
+import React, { useState } from 'react';
+import { useEditorStore } from "@/store/use-editor-store";
+import { MinusIcon, PlusIcon } from 'lucide-react';
 
 
 export const FontSizeButton = () => {
-	const {editor} = useEditorStore()
+	const { editor } = useEditorStore()
 
 	const currentFontSize = editor?.getAttributes('textStyle').fontSize
 		? editor?.getAttributes('textStyle').fontSize.replace("px", '')
@@ -27,7 +17,7 @@ export const FontSizeButton = () => {
 	const updateFontSize = (newSize: string) => {
 		const size = parseInt(newSize);
 
-		if(!isNaN(size) && size > 0) {
+		if (!isNaN(size) && size > 0) {
 			editor?.chain().focus().setFontSize(`${size}px`).run()
 			setFontSize(newSize)
 			setInputValue(newSize)
@@ -43,7 +33,7 @@ export const FontSizeButton = () => {
 		updateFontSize(inputValue)
 	}
 	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-		if(e.key === 'Enter') {
+		if (e.key === 'Enter') {
 			e.preventDefault();
 			updateFontSize(inputValue);
 			editor?.commands.focus()
@@ -57,7 +47,7 @@ export const FontSizeButton = () => {
 
 	const decrement = () => {
 		const newSize = parseInt(fontSize) - 1;
-		if(newSize > 0) {
+		if (newSize > 0) {
 			updateFontSize(newSize.toString())
 		}
 	}
@@ -68,7 +58,7 @@ export const FontSizeButton = () => {
 				onClick={decrement}
 				className={'px-1.5 hover:bg-neutral-200/80 text-sm rounded-sm justify-center items-center flex shrink-0 w-7 h-7'}
 			>
-				<MinusIcon className={'size-4'}/>
+				<MinusIcon className={'size-4'} />
 			</button>
 			{isEditing ? (
 				<input
@@ -96,7 +86,7 @@ export const FontSizeButton = () => {
 				onClick={increment}
 				className={'px-1.5 hover:bg-neutral-200/80 text-sm rounded-sm justify-center items-center flex shrink-0 w-7 h-7'}
 			>
-				<PlusIcon className={'size-4'}/>
+				<PlusIcon className={'size-4'} />
 			</button>
 		</div>
 	);

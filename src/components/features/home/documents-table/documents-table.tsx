@@ -1,9 +1,10 @@
 import React from 'react';
-import {Doc} from "../../../../../convex/_generated/dataModel";
-import {PaginationStatus} from "convex/react";
+import { Doc } from "../../../../../convex/_generated/dataModel";
+import { PaginationStatus } from "convex/react";
 import { LoaderIcon } from 'lucide-react';
-import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from '@/components/ui/table';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { DocumentRow } from './document-row/document-row';
+import { Button } from '@/components/ui/button';
 
 
 interface DocumentsTableProps {
@@ -12,14 +13,14 @@ interface DocumentsTableProps {
 	status: PaginationStatus;
 }
 
-export const DocumentsTable = ({status, documents, loadMore} : DocumentsTableProps) => {
+export const DocumentsTable = ({ status, documents, loadMore }: DocumentsTableProps) => {
 
 
 	return (
 		<div className={'max-w-screen-xl mx-auto  px-16 py-6 flex flex-col gap-5'}>
 			{documents === undefined ? (
 				<div className={'flex justify-center items-center h-24'}>
-					<LoaderIcon className={'animate-spin text-muted-foreground size-5'}/>
+					<LoaderIcon className={'animate-spin text-muted-foreground size-5'} />
 				</div>
 			) : (
 				<Table>
@@ -59,6 +60,20 @@ export const DocumentsTable = ({status, documents, loadMore} : DocumentsTablePro
 					)}
 				</Table>
 			)}
+			<div className={'flex items-center justify-center'}>
+				<Button
+					variant='ghost'
+					size={'sm'}
+					onClick={() => loadMore(5)}
+					disabled={status !== 'CanLoadMore'}
+				>
+					{status === 'CanLoadMore' ? <span>
+						Load more
+					</span> : <span>
+						End of results
+					</span>}
+				</Button>
+			</div>
 		</div>
 	);
 };

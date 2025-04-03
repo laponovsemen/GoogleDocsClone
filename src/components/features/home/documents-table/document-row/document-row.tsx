@@ -1,29 +1,32 @@
 import React from 'react';
-import {Doc} from '../../../../../../convex/_generated/dataModel';
-import {TableCell, TableRow} from "@/components/ui/table";
-import {SiGoogledocs} from 'react-icons/si'
-import {Building2Icon, CircleUserIcon, MoreVertical} from "lucide-react";
+import { Doc } from '../../../../../../convex/_generated/dataModel';
+import { TableCell, TableRow } from "@/components/ui/table";
+import { SiGoogledocs } from 'react-icons/si'
+import { Building2Icon, CircleUserIcon } from "lucide-react";
 import { format } from 'date-fns';
-import { Button } from '@/components/ui/button';
-import {DropdownMenu} from "@/components/ui/dropdown-menu";
-import {DocumentMenu} from "@/components/features/home/documents-table/document-row/document-menu/document-menu";
+import { DocumentMenu } from "@/components/features/home/documents-table/document-row/document-menu/document-menu";
+import { useRouter } from 'next/navigation';
 
 interface DocumentRowProps {
 	document: Doc<'documents'>
 }
 
-export const DocumentRow = ({document}: DocumentRowProps) => {
+export const DocumentRow = ({ document }: DocumentRowProps) => {
+
+	const router = useRouter();
 
 	const onNewTabClick = (id: string) => {
 		window.open(`/documents/${id}`, '_blank');
 	}
 
+
 	return (
 		<TableRow
+			onClick={() => router.push(`/documents/${document._id}`)}
 			className={'cursor-pointer'}
 		>
 			<TableCell className={'w-[50px]'}>
-				<SiGoogledocs className={'size-6 fill-blue-500'}/>
+				<SiGoogledocs className={'size-6 fill-blue-500'} />
 			</TableCell>
 			<TableCell className={'font-medium md:w-[45%]'}>
 				{document.title}

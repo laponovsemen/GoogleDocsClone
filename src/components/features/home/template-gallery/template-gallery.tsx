@@ -1,11 +1,12 @@
 'use client'
-import {Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious} from '@/components/ui/carousel';
-import React, {useState} from 'react';
-import {cn} from "@/lib/utils";
-import {templates} from '@/constants/templates';
-import {useRouter} from "next/navigation";
-import {useMutation} from "convex/react";
-import {api} from "../../../../../convex/_generated/api";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import React, { useState } from 'react';
+import { cn } from "@/lib/utils";
+import { templates } from '@/constants/templates';
+import { useRouter } from "next/navigation";
+import { useMutation } from "convex/react";
+import { api } from "../../../../../convex/_generated/api";
+import { toast } from 'sonner';
 
 
 export const TemplateGallery = () => {
@@ -18,7 +19,11 @@ export const TemplateGallery = () => {
 		create({
 			title, initialContent
 		})
+			.catch(() => {
+				toast.error('Something went wrong')
+			})
 			.then((documentId) => {
+				toast.success('Document created')
 				router.push(`/documents/${documentId}`)
 			})
 			.finally(() => {
@@ -43,10 +48,9 @@ export const TemplateGallery = () => {
 									'aspect-[3/4] flex flex-col gap-y-2.5',
 									isCreating && 'pointer-events-none opacity-50'
 								)}>
-									{/*todo: add proper initial content*/}
 									<button
 										disabled={isCreating}
-										onClick={() => onTemplateClick(template.label, "")}
+										onClick={() => onTemplateClick(template.label, template.initialContent)}
 										style={{
 											backgroundImage: `url(${template.imageUrl})`,
 											backgroundSize: 'cover',
@@ -62,8 +66,8 @@ export const TemplateGallery = () => {
 							</CarouselItem>
 						))}
 					</CarouselContent>
-					<CarouselNext/>
-					<CarouselPrevious/>
+					<CarouselNext />
+					<CarouselPrevious />
 				</Carousel>
 			</div>
 		</div>

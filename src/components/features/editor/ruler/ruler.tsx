@@ -1,14 +1,25 @@
-import React, {useRef, useState} from 'react';
-import {FaCaretDown} from "react-icons/fa";
+import React, { useRef, useState } from 'react';
+import { FaCaretDown } from "react-icons/fa";
+import { useStorage, useMutation } from '@liveblocks/react'
+import { LEFT_MARGIN_DEFAULT, RIGHT_MARGIN_DEFAULT } from '@/constants/margins';
 
 
-const markers = Array.from({length: 83}, (_, i) => i);
+const markers = Array.from({ length: 83 }, (_, i) => i);
 
 export const Ruler = () => {
+
+	const leftMargin: number = useStorage((root) => root.leftMargin) ?? LEFT_MARGIN_DEFAULT
+	const rightMargin: number = useStorage((root) => root.rightMargin) ?? RIGHT_MARGIN_DEFAULT
+	const setLeftMargin = useMutation(({ storage }, position: number) => {
+		storage.set('leftMargin', position)
+	}, [])
+	const setRightMargin = useMutation(({ storage }, position: number) => {
+		storage.set('rightMargin', position)
+	}, [])
+
+
 	const PAGE_WIDTH = 816;
 	const MIN_WIDTH = 100;
-	const [leftMargin, setLeftMargin] = React.useState(56);
-	const [rightMargin, setRightMargin] = React.useState(56);
 
 	const [isDraggingLeft, setIsDraggingLeft] = useState<boolean>(false);
 	const [isDraggingRight, setIsDraggingRight] = useState<boolean>(false);
@@ -57,11 +68,11 @@ export const Ruler = () => {
 	}
 
 	const handleLeftDoubleClick = () => {
-		setLeftMargin(56);
+		setLeftMargin(LEFT_MARGIN_DEFAULT);
 	}
 
 	const handleRightDoubleClick = () => {
-		setRightMargin(56);
+		setRightMargin(RIGHT_MARGIN_DEFAULT);
 	}
 
 	return (
@@ -104,7 +115,7 @@ export const Ruler = () => {
 								>
 									{marker % 10 === 0 && (
 										<>
-											<div className={'absolute bottom-0 w-[1px] h-2 bg-neutral-500'}/>
+											<div className={'absolute bottom-0 w-[1px] h-2 bg-neutral-500'} />
 											<span
 												className={'absolute bottom-2 text-[10px] text-neutral-500 transform -translate-x-1/2'}>
 												{marker / 10 + 1}
@@ -112,10 +123,10 @@ export const Ruler = () => {
 										</>
 									)}
 									{marker % 5 === 0 && marker % 10 !== 0 && (
-										<div className={'absolute bottom-0 w-[1px] h-1.5 bg-neutral-500'}/>
+										<div className={'absolute bottom-0 w-[1px] h-1.5 bg-neutral-500'} />
 									)}
 									{marker % 5 !== 0 && (
-										<div className={'absolute bottom-0 w-[1px] h-1 bg-neutral-500'}/>
+										<div className={'absolute bottom-0 w-[1px] h-1 bg-neutral-500'} />
 									)}
 								</div>
 							)
@@ -136,16 +147,16 @@ interface MarkerProps {
 }
 
 const Marker = ({
-	                isLeft,
-	                onDoubleClick,
-	                isDragging,
-	                onMouseDown,
-	                position
-                }: MarkerProps) => {
+	isLeft,
+	onDoubleClick,
+	isDragging,
+	onMouseDown,
+	position
+}: MarkerProps) => {
 	return (
 		<div
 			className={'absolute top-0 w-4 h-full cursor-ew-resize z-[5] group -ml-2'}
-			style={{[isLeft ? 'left' : 'right']: `${position}px`}}
+			style={{ [isLeft ? 'left' : 'right']: `${position}px` }}
 			onMouseDown={onMouseDown}
 			onDoubleClick={onDoubleClick}
 		>

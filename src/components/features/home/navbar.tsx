@@ -1,8 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image'
-import {SearchInput} from "@/components/features/home/search-input/search-input";
-import { Logout } from './logout/logout';
+import { SearchInput } from "@/components/features/home/search-input/search-input";
+import { UserPersonalInfo } from './user-personal-info/user-personal-info';
 
 export const Navbar = () => {
 	return (
@@ -19,7 +19,7 @@ export const Navbar = () => {
 				<h3 className={'texl-xl'}>Docs</h3>
 			</div>
 			<SearchInput />
-			<Logout />
+			<UserPersonalInfo />
 		</nav>
 	);
 };

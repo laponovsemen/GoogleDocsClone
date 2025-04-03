@@ -1,9 +1,11 @@
-import type {Metadata} from "next";
-import localFont from "next/font/local";
-import {Inter} from 'next/font/google'
-import {NuqsAdapter} from "nuqs/adapters/next/app";
+import type { Metadata } from "next";
+import { Toaster } from '@/components/ui/sonner';
+import { Inter } from 'next/font/google'
+import { NuqsAdapter } from "nuqs/adapters/next/app";
+import '@liveblocks/react-ui/styles.css';
+import '@liveblocks/react-tiptap/styles.css'
 import "./globals.css";
-import {ConvexClientProvider} from "@/provider/convex-client-provider/convex-client-provider";
+import { ConvexClientProvider } from "@/provider/convex-client-provider/convex-client-provider";
 
 
 const inter = Inter({
@@ -16,22 +18,23 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-	                                   children,
-                                   }: Readonly<{
+	children,
+}: Readonly<{
 	children: React.ReactNode;
 }>) {
 	return (
 		<html lang="en">
-		<body
-			className={`${inter.className} antialiased`}
-		>
-		<NuqsAdapter>
-			<ConvexClientProvider>
-				{children}
-			</ConvexClientProvider>
+			<body
+				className={`${inter.className} antialiased`}
+			>
+				<NuqsAdapter>
+					<ConvexClientProvider>
+						<Toaster />
+						{children}
+					</ConvexClientProvider>
 
-		</NuqsAdapter>
-		</body>
+				</NuqsAdapter>
+			</body>
 		</html>
 	);
 }
